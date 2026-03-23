@@ -5,7 +5,7 @@ import re
 
 class CustomPermission(BasePermission):
     req = None
-    allowed_groups_for_custom_api = {'admin', 'sales', 'creator', 'editor', 'manager', 'leader', 'employee', 'client', 'backoffice', 'support', 'CompanyUser', 'Admin', 'Customer'}
+    allowed_groups_for_custom_api = {'admin', 'sales', 'creator', 'editor', 'manager', 'leader', 'employee', 'client', 'backoffice', 'support', 'CompanyUser'}
     
     def get_next_segment_after_api_v1(self, request):
         resolved_url = resolve(request.path_info)
@@ -182,27 +182,3 @@ class CustomPermission(BasePermission):
 #         if request.user.is_superuser:
 #             return True
 #         return obj.team.leader == request.user.employee
-
-
-
-class IsAdmin(BasePermission):
-    def has_permission(self, request, view):
-        return request.user.is_authenticated and (
-            request.user.is_superuser or 
-            request.user.groups.filter(name='Admin').exists()
-        )
-
-
-class IsCustomer(BasePermission):
-    def has_permission(self, request, view):
-        return request.user.is_authenticated and request.user.groups.filter(name='Customer').exists()
-
-
-class IsAdminOrReadOnly(BasePermission):
-    def has_permission(self, request, view):
-        if request.method in ['GET', 'HEAD', 'OPTIONS']:
-            return request.user.is_authenticated
-        return request.user.is_authenticated and (
-            request.user.is_superuser or 
-            request.user.groups.filter(name='Admin').exists()
-        )
