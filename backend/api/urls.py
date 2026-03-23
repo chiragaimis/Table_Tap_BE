@@ -6,6 +6,9 @@ from api.Role import view as roleView
 from api.User import view as userView
 from api.TestAPI import view as TestView
 from api.Address import view as AddressView
+from api.Product import view as ProductView
+from api.Cart import view as CartView
+from api.Order import view as OrderView
 from api.ChangeMyPassword.view import ChangeMyPasswordView
 from api.ForgetPassword.view import PasswordResetRequestView
 from api.IsSuperUser.view import CheckUserType
@@ -22,6 +25,12 @@ router.register(r'role',roleView.RoleViewset, basename='role'),
 router.register(r'permission', permissionView.PermissionViewset, basename='permission'),
 router.register(r'test', TestView.TestViewset, basename='test'),
 router.register(r'address',AddressView.AddressViewset,basename='address'),
+router.register(r'products/categories', ProductView.CategoryViewSet, basename='category'),
+router.register(r'products', ProductView.ProductViewSet, basename='product'),
+router.register(r'store/categories', ProductView.PublicCategoryViewSet, basename='public-category'),
+router.register(r'store/products', ProductView.PublicProductViewSet, basename='public-product'),
+router.register(r'cart', CartView.CartViewSet, basename='cart'),
+router.register(r'orders', OrderView.OrderViewSet, basename='order'),
 
 # Create a schema view for drf-yasg
 schema_view = get_schema_view(
