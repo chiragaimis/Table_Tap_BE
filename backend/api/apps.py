@@ -7,6 +7,5 @@ class ApiConfig(AppConfig):
 
     def ready(self):
         import api.UserProfile
-        import api.TestAPI.model
-        import api.Address.model
+     
         
